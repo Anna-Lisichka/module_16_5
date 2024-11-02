@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 from fastapi.templating import Jinja2Templates
 
-app = FastAPI(swagger_ui_parameters={"tryItOutEnabled": True})
+app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
 users = []
