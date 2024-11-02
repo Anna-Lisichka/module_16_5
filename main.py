@@ -3,12 +3,10 @@ from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 from fastapi.templating import Jinja2Templates
 
-# uvicorn main:app
 app = FastAPI(swagger_ui_parameters={"tryItOutEnabled": True})
 templates = Jinja2Templates(directory="templates")
 
 users = []
-
 
 class User(BaseModel):
     id: int = None
@@ -20,14 +18,6 @@ class User(BaseModel):
 def get_all_user(request: Request) -> HTMLResponse:
     return templates.TemplateResponse("users.html", {"request": request, "users": users})
 
-
-''' - здесь ОШИБКА: users[user_id] использовать не правильно, т.к. я беру индекс user, а не его ID'''
-# @app.get("/user/{user_id}")
-# def get_users(request: Request, user_id: int) -> HTMLResponse:
-#     try:
-#         return templates.TemplateResponse("users.html", {"request": request, "user": users[user_id]})
-#     except IndexError:
-#         raise HTTPException(status_code=404, detail="User not found")
 
 @app.get("/user/{user_id}")
 def get_users(request: Request, user_id: int) -> HTMLResponse:
